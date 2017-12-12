@@ -1,0 +1,12 @@
+    pool.getConnection(function(err, conn) {
+        if (err) {
+            throw err
+        }
+        const sql = `SELECT outAddresses FROM mix_address where inAddress = "${inAddress}"`
+
+        conn.query(sql, function(err, rows) {
+            if (err) throw err
+            console.log("HERE")
+            console.log(rows[0].outAddresses)
+        })
+    })

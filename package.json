@@ -1,0 +1,23 @@
+{
+  "name": "jobcoin",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.168.0",
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "jade": "~1.11.0",
+    "lodash": "^4.17.4",
+    "morgan": "~1.9.0",
+    "mysql": "^2.15.0",
+    "request": "^2.83.0",
+    "serve-favicon": "~2.4.5",
+    "sqs-consumer": "^3.8.0",
+    "sqs-producer": "^1.6.2"
+  }
+}
