@@ -86,3 +86,22 @@ $ curl -s http://jobcoin.gemini.com/wrongness/api/transactions | python -m json.
     }
 ```
 In the above example, we sent the addresses `test1` and `test2` to the API, which returned the deposit address `43939c7df9276e5309d8e87668c94c112908e4c264a51866e88ce6b13eb3115a`. When we deposited `50` coins from `foo` to the deposit address, those coins were automatically moved to `house` then from `house` to both `test1` and `test2`.
+
+## to do
+
+## security vulnerabilities
+ - there is no TTL on the generated deposit addresses, making the application easily DoSable
+ -- add a TTL on generated deposit addresses if they are not deposited into within `x` minutes
+ - there is no delay on the transfer from deposit address to house or from house to final accounts, making the coins easily traceable
+ -- add a bounded random delay on the transfer from deposit address to the house
+ -- add bounded random delays from house to final accounts (to make sure delays aren't all the same)
+ - funds are split evenly
+ -- add a bounded random split of coins (to make sure funds sent aren't all the same)
+
+## code cleanup
+ - use promises instead of nested callbacks
+ - hide AWS credentials...
+ - probably some splitting up of functions
+
+## application reliabilty
+The SQS queue I used is at least once delivery, meaning duplicate messages can be sent during instability. The depositer already handles this because if it receives two messages telling it to transfer from a deposit address to the house address, the second transfer will simply fail because there are no funds left. However, the sender does not handle this possibility of duplicate messages. Duplicate messages will cause the house to lose money and for the user to receive extra money.
